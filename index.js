@@ -22,3 +22,25 @@ const spinnerSearchEl = document.querySelector(".spinner--search");
 const spinnerJobDetailsEl = document.querySelector(".spinner--job-details");
 
 // -- SEARCH COMPONENT --
+
+const submitHandler = (e) => {
+    // prevent default behaviour
+    e.preventDefault();
+    // get search text / and validate
+    const searchText = searchInputEl.value, forbiddenPattern = /[0-9]/,
+        patternMatch = forbiddenPattern.test(searchText);
+    if (patternMatch) {
+        errorTextEl.textContent = 'invalid search';
+        errorEl.classList.add('error--visible');
+        setTimeout(() => {
+            errorEl.classList.remove(('error--visible'));
+        }, 3500);
+    }
+    // blur input
+    searchInputEl.blur()
+    // render spinner
+    spinnerSearchEl.classList.add('spinner--visible')
+
+};
+
+searchFormEl.addEventListener('submit', submitHandler);
